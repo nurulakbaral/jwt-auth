@@ -2,5 +2,5 @@
 
 ### Description
 
-"Mencari template yang tepat tapi tidak ketemu-kemtu, yaudah coba membuat sendiri, harapannya ada yang berkontribusi untuk
+"Mencari template yang tepat tapi tidak ketemu, yaudah coba buat sendiri, harapannya ada yang kontribusi untuk
 memperbaiki template yang rapuh ini."
