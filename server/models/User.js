@@ -25,6 +25,7 @@ const userSchema = new Schema({
     }
 })
 
+// Hook methods
 // Notes : Invoke a function before data saved to database
 userSchema.pre('save', async function (next) {
     // Notes :  This condition may not change the password hash when Model.prototype.save() in mongoose invoked
@@ -35,6 +36,15 @@ userSchema.pre('save', async function (next) {
     next()
 })
 
+// Static methods
+userSchema.statics.login = async function (user) {
+    const { email, password } = user
+    const isUserExist = await this.findOne({ email })
+    const isPasswordValid = await bcrypt.compare(password, isUserExist.password)
+    if (isUserExist && isPasswordValid) {
+        return isUserExist
+    }
+}
 // Notes : Create the instance
 const User = mongoose.model('User', userSchema)
 

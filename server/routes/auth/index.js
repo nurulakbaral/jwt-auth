@@ -1,15 +1,11 @@
 const { Router } = require('express')
-const { registerController } = require('../../controllers/auth/index')
+const { registerController, loginController } = require('../../controllers/auth')
 
 // Setup
 const router = Router()
 
 // Routes
 router.post('/register', registerController)
-router.post('/login', (req, res) => {
-    res.status(200).json({
-        message: 'Login belum dibuat guys'
-    })
-})
+router.post('/login', loginController)
 
 module.exports = router

@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken')
+const config = require('../config')
 
 const createNewToken = (userId = null) => {
-    return jwt.sign({ userId }, process.env.JWT_SECRET, {
-        expiresIn: parseInt(process.env.JWT_EXPIRES_IN)
+    return jwt.sign({ userId }, config.secrets.jwtSecret, {
+        expiresIn: config.secrets.jwtExp
     })
 }
 

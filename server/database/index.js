@@ -1,13 +1,11 @@
-const dotenv = require('dotenv')
 const mongoose = require('mongoose')
+const config = require('../config')
 
 // Setup
-dotenv.config()
-
 // Database config
-const connect = (DB_URL = process.env.DB_URL, options = {}) => {
+const connect = (dbUrl = config.secrets.dbUrl, options = {}) => {
     return mongoose
-        .connect(DB_URL, {
+        .connect(dbUrl, {
             ...options,
             useNewUrlParser: true,
             useUnifiedTopology: true,
@@ -16,4 +14,4 @@ const connect = (DB_URL = process.env.DB_URL, options = {}) => {
 
 }
 
-module.exports = { connect }
+module.exports = connect

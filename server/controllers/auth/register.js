@@ -1,12 +1,10 @@
-const { User } = require('../../models/index')
-const { createNewToken } = require('../../utils/index')
+const { User } = require('../../models')
+const { createNewToken } = require('../../utils')
 
 // Notes :Register controller for creare new user
 const register = async (req, res) => {
     const { fullName, email, password } = req.body
     if (!fullName || !email || !password) {
-        // Fix/Bugs : Jika terjadi error, lebih baik error-nya di passing ke sebuah controller (pusat error) yang khusus meng-handle error
-        // maka controller ini dijadikan middleware dan kirim error melalui next() function, contoh, next(err)
         return res.status(400).json({
             error: 'Fields are required'
         })
@@ -18,8 +16,8 @@ const register = async (req, res) => {
         // Notes: Set expiry for token to 1 month 
         // Fix/Bugs : Mungkin lebih cantik jgn pake let tapi const dan kayak disatuin datenya, 
         // contoh, const days = new Date.days.setDate(...), kalo bisa.
-        let days = new Date();
-        days.setDate(days.getDate() + 30);
+        const days = new Date()
+        days.setDate(days.getDate() + 30)
         // Notes : Cookie settings 
         res.cookie('jwt', token, {
             expires: days,
@@ -37,10 +35,11 @@ const register = async (req, res) => {
             }
         });
     } catch (err) {
-        // Fix/Bugs : Jika terjadi error, lebih baik error-nya di passing ke sebuah controller (pusat error) yang khusus meng-handle error
-        // maka controller ini dijadikan middleware dan kirim error melalui next() function, contoh, next(err)
         res.status(400).json({
-            error: err.message
+            error: {
+                message: 'Register is failed',
+                details: err.message
+            }
         })
     }
 }
