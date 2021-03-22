@@ -4,6 +4,7 @@ const path = require('path')
 const dotenv = require('dotenv')
 const cors = require('cors')
 const { connect } = require('./config/database')
+const auth = require('./routes/auth/index')
 
 // Setup
 dotenv.config()
@@ -21,12 +22,13 @@ app.use(cors({
 }))
 
 // App routes
-// Notes : Urutan peletakan routes harus diperhatikan, karena berjalan secara sekuensial
+// Notes : Be careful with the order of routes because they run sequentially.
 app.get('/api/post', (req, res) => {
     res.json({
         greetings: 'I am handsome! :)'
     })
 })
+app.use('/auth/', auth)
 
 // Server
 const runServer = async () => {
@@ -35,9 +37,12 @@ const runServer = async () => {
             .then((result) => app.listen(process.env.PORT, () => {
                 console.log(`Success : Running on PORT ${process.env.PORT}`)
             }))
-            .catch((err) => { console.log(err) })
+            .catch((err) => {
+                throw new Error(err)
+            })
     } catch (err) {
-        console.log('runServer error', err)
+        // Notes : Always set message property for the error
+        console.log('runServer error', err.message)
     }
 }
 
