@@ -1,4 +1,4 @@
-## Template for JWT Authentication in a Express and Next.js App
+## Template for JWT Authentication in Express and Next.js App
 
 ### Description
 
