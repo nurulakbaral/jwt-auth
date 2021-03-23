@@ -16,8 +16,6 @@ const login = async (req, res) => {
             .then((user) => {
                 const token = createNewToken(user._id)
                 // Notes: Set expiry for token to 1 month 
-                // Fix/Bugs : Mungkin lebih cantik jgn pake let tapi const dan kayak disatuin datenya, 
-                // contoh, const days = new Date.days.setDate(...), kalo bisa.
                 const days = new Date()
                 days.setDate(days.getDate() + 30)
                 // Notes : Cookie settings 
